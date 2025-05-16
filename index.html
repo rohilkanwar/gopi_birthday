@@ -1,0 +1,92 @@
+import { useState } from 'react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+
+const experiences = [
+  {
+    year: "High School",
+    title: "Director of Business, Student Council",
+    description: "Position specially created to reflect Saiyam’s entrepreneurial mindset early on."
+  },
+  {
+    year: "College",
+    title: "Chief Editor, The Business Cafe",
+    description: "Led content strategy and business thought leadership on campus."
+  },
+  {
+    year: "2019 - 2023",
+    title: "Audit Senior / Assistant Manager, Deloitte",
+    description: "Managed multi-million dollar accounts, led audit teams, and honed operational efficiency."
+  },
+  {
+    year: "2024 - Present",
+    title: "Founder, Sugar-Free Ice Cream Startup",
+    description: "Built a health-conscious dessert brand from scratch, redefining guilt-free indulgence."
+  }
+];
+
+export default function Home() {
+  const [current, setCurrent] = useState(0);
+
+  return (
+    <main className="min-h-screen bg-white text-gray-900 p-6 font-sans">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl font-bold mb-2">Saiyam Jain</h1>
+        <p className="text-lg mb-4">Entrepreneur | Ex-Deloitte | Ice Cream Visionary 🍨</p>
+        <a
+          href="https://www.linkedin.com/in/saiyam-jain-8913b5182/"
+          target="_blank"
+          className="underline text-blue-600"
+        >
+          Connect on LinkedIn
+        </a>
+
+        <section className="mt-12">
+          <h2 className="text-2xl font-semibold mb-6">My Journey</h2>
+          <div className="relative overflow-hidden">
+            <motion.div
+              key={current}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Card className="shadow-md mb-6">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold mb-1">{experiences[current].title}</h3>
+                  <p className="text-sm italic mb-2">{experiences[current].year}</p>
+                  <p>{experiences[current].description}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+            <div className="flex justify-between">
+              <Button
+                variant="outline"
+                onClick={() => setCurrent((current - 1 + experiences.length) % experiences.length)}
+              >
+                ⬅️ Back
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setCurrent((current + 1) % experiences.length)}
+              >
+                Next ➡️
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-16">
+          <h2 className="text-2xl font-semibold mb-4">About the Startup</h2>
+          <p className="text-md leading-relaxed">
+            Saiyam’s mission is to revolutionize the dessert industry with health-forward innovation.
+            His sugar-free ice cream brand caters to taste and wellness — proving indulgence and discipline can coexist.
+            With financial insight from Deloitte and marketing experience from his early leadership roles,
+            Saiyam is making healthy dessert the new normal.
+          </p>
+        </section>
+      </div>
+    </main>
+  );
+}
